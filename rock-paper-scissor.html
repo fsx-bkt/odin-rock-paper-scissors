@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rock, Paper, Scissors</title>
+</head>
+<body>
+    <script>
+        let humanScore = 0;
+        let computerScore = 0;
+
+        function getComputerChoice(){
+            let randomNumber = Math.floor(Math.random() * 3);
+            let computerChoice;
+
+            switch(randomNumber){
+                case 0:
+                computerChoice = "rock";
+                    break;
+                case 1:
+                computerChoice = "paper";
+                    break;
+                case 2:
+                computerChoice = "scissors";
+                    break;
+                default:
+                    break;
+            }
+            return computerChoice;
+        }
+
+        function getHumanChoice(){
+            let humanChoice = prompt("Pick between Rock, Paper, or Scissors").toLowerCase();
+            return humanChoice;
+        }
+
+        function playRound(humanChoice, computerChoice){
+            humanChoice = humanChoice.toLowerCase();
+            if (humanChoice === "rock" && computerChoice === "paper"){
+                console.log("You lose! Paper beats Rock.");
+                computerScore++;
+            } 
+            else if (humanChoice === "paper" && computerChoice === "scissors"){
+                console.log("You lose! Scissors beats paper.");
+                computerScore++;
+            }
+            else if (humanChoice === "scissors" && computerChoice === "rock"){
+                console.log("You lose! Rock beats paper.");
+                computerScore++;
+            }
+            else if (humanChoice === computerChoice){
+                console.log("Its a tie!.");
+            }
+            else{
+                console.log("You win!.");
+                humanScore++;
+            }
+        }
+
+        function playGame(){
+            let counter = 0;
+            while (counter < 5){
+                const humanSelection = getHumanChoice();
+                const computerSelection = getComputerChoice();
+                playRound(humanSelection, computerSelection);
+                counter++;
+            }
+        }
+
+        playGame();
+        console.log("Score (Human - Computer): " + humanScore + " - " + computerScore); 
+    </script>
+</body>
+</html>
