@@ -6,7 +6,15 @@
     <title>Rock, Paper, Scissors</title>
 </head>
 <body>
+    <div id="container">
+        <button id="rock">rock</button>
+        <button id="paper">paper</button>
+        <button id="scissors">scissors</button>
+    </div>
+    <div id="result"></div>
     <script>
+        let result = document.querySelector("#result")
+        let gameOptions = document.querySelector("#container");
         let humanScore = 0;
         let computerScore = 0;
 
@@ -29,47 +37,38 @@
             }
             return computerChoice;
         }
-
-        function getHumanChoice(){
-            let humanChoice = prompt("Pick between Rock, Paper, or Scissors").toLowerCase();
-            return humanChoice;
-        }
-
+        
         function playRound(humanChoice, computerChoice){
             humanChoice = humanChoice.toLowerCase();
             if (humanChoice === "rock" && computerChoice === "paper"){
-                console.log("You lose! Paper beats Rock.");
                 computerScore++;
             } 
             else if (humanChoice === "paper" && computerChoice === "scissors"){
-                console.log("You lose! Scissors beats paper.");
                 computerScore++;
             }
             else if (humanChoice === "scissors" && computerChoice === "rock"){
-                console.log("You lose! Rock beats paper.");
                 computerScore++;
             }
             else if (humanChoice === computerChoice){
-                console.log("Its a tie!.");
             }
             else{
-                console.log("You win!.");
                 humanScore++;
             }
-        }
-
-        function playGame(){
-            let counter = 0;
-            while (counter < 5){
-                const humanSelection = getHumanChoice();
-                const computerSelection = getComputerChoice();
-                playRound(humanSelection, computerSelection);
-                counter++;
+            
+            if (humanScore === 5 || computerScore === 5){
+                result.textContent = humanScore > computerScore ? "Human wins!" : "Computer wins!"
+                humanScore = computerScore = 0;
             }
-        }
+            else{
+                result.textContent = `Human: ${humanScore} | ${computerScore} :Computer`
+            }
+        } 
 
-        playGame();
-        console.log("Score (Human - Computer): " + humanScore + " - " + computerScore); 
+        gameOptions.addEventListener("click", (event) =>{
+            let target = event.target;
+
+            playRound(target.textContent, getComputerChoice());
+        })
     </script>
 </body>
 </html>
